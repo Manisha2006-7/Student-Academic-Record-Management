@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Academic Record Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">SA</span><div><strong>CampusDesk</strong><small>Academic portal</small></div></div>
+    <p class="nav-label">WORKSPACE</p>
+    <a class="nav-item active" href="#dashboard">▦ <span>Dashboard</span></a>
+    <a class="nav-item" href="#students">♙ <span>Student Records</span></a>
+    <a class="nav-item" href="#academic">▤ <span>Academic Overview</span></a>
+    <div class="sidebar-note"><strong>Student Records</strong><p>Keep academic information organized in one place.</p></div>
+    <div class="profile"><div class="avatar">AD</div><div><strong>Administrator</strong><small>Academic office</small></div></div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div><p class="eyebrow">ACADEMIC MANAGEMENT</p><h1>Student dashboard</h1><p class="subheading">Manage student information and academic performance.</p></div>
+      <button id="exportBtn" class="btn btn-outline" type="button">↓ Export CSV</button>
+    </header>
+
+    <section id="dashboard" class="stats-grid" aria-label="Dashboard statistics">
+      <article class="stat-card"><div class="stat-icon purple">♙</div><p>Total students</p><strong id="totalStudents">0</strong><small>Registered records</small></article>
+      <article class="stat-card"><div class="stat-icon blue">▤</div><p>Courses</p><strong id="totalCourses">0</strong><small>Unique courses</small></article>
+      <article class="stat-card"><div class="stat-icon green">✓</div><p>Average marks</p><strong id="averageMarks">—</strong><small>Across entered marks</small></article>
+      <article class="stat-card"><div class="stat-icon orange">★</div><p>Top performers</p><strong id="topPerformers">0</strong><small>Percentage of 85% or more</small></article>
+    </section>
+
+    <section id="students" class="panel">
+      <div class="panel-heading"><div><h2>Student records</h2><p>Add and maintain student details.</p></div><button id="addStudentBtn" class="btn btn-primary" type="button">＋ Add student</button></div>
+      <div class="toolbar">
+        <label class="search-box">⌕ <input id="searchInput" type="search" placeholder="Search name, ID, email or course..." aria-label="Search students"></label>
+        <select id="courseFilter" aria-label="Filter by course"><option value="">All courses</option></select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>STUDENT</th><th>STUDENT ID</th><th>COURSE</th><th>SEMESTER</th><th>MARKS %</th><th>GRADE</th><th>ACTIONS</th></tr></thead>
+          <tbody id="studentTableBody"></tbody>
+        </table>
+      </div>
+      <div id="emptyState" class="empty-state" hidden><div class="empty-icon">♙</div><strong>No students found</strong><p>Add a student or change your search.</p></div>
+      <div class="table-footer"><span id="recordCount">0 records</span><span>Changes are saved in this browser</span></div>
+    </section>
+
+    <section id="academic" class="panel academic-panel">
+      <div class="panel-heading"><div><h2>Academic overview</h2><p>Grade distribution based on student percentages.</p></div></div>
+      <div class="grade-bars" id="gradeDistribution"></div>
+      <p class="note">Grades are calculated from the percentage entered for each student. You can adapt the thresholds to your institution's grading policy.</p>
+    </section>
+
+    <footer>Student Academic Record Management System <span>Built with HTML, CSS and JavaScript</span></footer>
+  </main>
+
+  <dialog id="studentDialog">
+    <form id="studentForm">
+      <div class="dialog-heading"><div><p class="eyebrow">STUDENT DETAILS</p><h2 id="dialogTitle">Add student</h2></div><button id="closeDialogBtn" class="icon-btn" type="button" aria-label="Close dialog">×</button></div>
+      <input id="studentRecordId" type="hidden">
+      <div class="form-grid">
+        <label>Full name<input id="studentName" required maxlength="70" placeholder="e.g. Asha Kumar"></label>
+        <label>Student ID<input id="studentId" required maxlength="20" placeholder="e.g. CSE2026001"></label>
+        <label>Email address<input id="studentEmail" type="email" required placeholder="student@example.com"></label>
+        <label>Course / Department<input id="studentCourse" required maxlength="60" placeholder="e.g. BE Computer Science"></label>
+        <label>Semester<select id="studentSemester" required><option value="">Select semester</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label>
+        <label>Marks percentage<input id="studentMarks" type="number" min="0" max="100" step="0.01" required placeholder="0–100"></label>
+      </div>
+      <p id="formError" class="form-error" role="alert"></p>
+      <div class="dialog-actions"><button id="cancelBtn" class="btn btn-outline" type="button">Cancel</button><button class="btn btn-primary" type="submit">Save student</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
